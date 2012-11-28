@@ -1,0 +1,14 @@
+{% extends "IvelazquezCoreBundle::layout.html.twig" %}
+
+{% block content %}
+    <div class="page-header">
+        <h2>{% trans %}Tools{% endtrans %}</h2>
+    </div>
+    {% include "IvelazquezCoreBundle:Main:tools.html.twig" %}
+
+    <div class="page-header">
+        <h2>{% trans %}Projects{% endtrans %}</h2>
+    </div>
+
+    {% include "IvelazquezCoreBundle:Main:projects.html.twig" %}
+{% endblock %}

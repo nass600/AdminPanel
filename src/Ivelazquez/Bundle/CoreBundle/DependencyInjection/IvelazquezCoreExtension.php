@@ -14,15 +14,21 @@ use Symfony\Component\DependencyInjection\Loader;
  */
 class IvelazquezCoreExtension extends Extension
 {
+    protected $config;
+
     /**
      * {@inheritDoc}
      */
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
+        $this->config = $this->processConfiguration($configuration, $configs);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+
+        $container->setParameter('ivelazquez_core.server', $this->config['server']);
+        $container->setParameter('ivelazquez_core.tools', $this->config['tools']);
+        $container->setParameter('ivelazquez_core.projects', $this->config['projects']);
     }
 }

@@ -20,9 +20,36 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('ivelazquez_core');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+                ->arrayNode('server')
+                    ->children()
+                        ->scalarNode('logo')->end()
+                        ->scalarNode('name')->isRequired()->end()
+                        ->scalarNode('environment')->isRequired()->end()
+                        ->scalarNode('ribbon_color')->isRequired()->end()
+                    ->end()
+                ->end()
+                ->arrayNode('tools')
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('name')->isRequired()->end()
+                            ->scalarNode('icon')->end()
+                            ->scalarNode('url')->end()
+                            ->scalarNode('route')->end()
+                        ->end()
+                    ->end()
+                ->end()
+                ->arrayNode('projects')
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('name')->isRequired()->end()
+                            ->scalarNode('icon')->end()
+                            ->scalarNode('url')->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
 
         return $treeBuilder;
     }

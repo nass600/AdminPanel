@@ -1,0 +1,16 @@
+{% for chunks in projects %}
+    <div class="row-fluid">
+        {% for project in chunks %}
+            <div class="span2">
+                <a class="thumbnail admin-module" target="_blank" href="{{ project.url }}">
+                    <div class="caption">
+                        <div class="admin-img-fixed-container">
+                            <img src="{{ asset(project.icon) }}" alt="">
+                        </div>
+                    </div>
+                    <h4 class="admin-text-centered">{{ project.name }}</h4>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endfor %}

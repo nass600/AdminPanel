@@ -1,0 +1,75 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <div class="ribbon right {{ server.ribbon_color }}">
+      <a href="<link to your repo>">{{ server.environment }}</a>
+    </div>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a class="brand" href="#">
+                    <img src="{{ asset(server.logo) }}" alt="">
+                    {{ server.name }}
+                </a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li class="active">
+                            {#<a href="{{ path('admin_project_list') }}">Projects</a>#}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span3">
+                <div class="well sidebar-nav">
+                    <ul class="nav nav-list">
+                        <li class="nav-header">{% trans %}Tools{% endtrans %}</li>
+                        {% block tools_menu '' %}
+                        <li class="nav-header">{% trans %}Projects{% endtrans %}</li>
+                        {% block projects_menu '' %}
+                        {#<li class="active">#}
+                            {#<a href="{{ path('admin_project_list') }}">Projects' list</a>#}
+                        {#</li>#}
+                        {#<li>#}
+                            {#<a href="{{ path('admin_project_new') }}">Create a new project</a>#}
+                        {#</li>#}
+                    </ul>
+                </div>
+            </div>
+            <div class="span9">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+        <hr>
+        <footer>
+            <p>{{ "now"|date("Y") }} {{ server.name }}</p>
+        </footer>
+    </div>
+
+    {#<div class="container">#}
+        {#<div class="row">#}
+            {#<div class="span12">#}
+                {#<div class="well">#}
+                    {#<ul class="nav nav-list">#}
+                        {#<li class="nav-header">Actions</li>#}
+                        {#<li class="active">#}
+                        {#</li>#}
+                        {#<li>#}
+                            {#&#123;&#35;<a href="{{ path('admin_project_new') }}">Create a new project</a>&#35;&#125;#}
+                        {#</li>#}
+                    {#</ul>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+        {#{% block content %}#}
+        {#{% endblock %}#}
+        {#<hr>#}
+        {#<footer>#}
+            {#<p>{{ "now"|date("Y") }} {{ server.name }}</p>#}
+        {#</footer>#}
+    {#</div>#}
+{% endblock %}

@@ -2,9 +2,15 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Admin Panel{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/ivelazquezcore/css/bootstrap.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('bundles/ivelazquezcore/css/main.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('bundles/ivelazquezcore/css/bootstrap-responsive.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('bundles/ivelazquezcore/css/ribbons/ribbons.css') }}"/>
+        <script type="text/javascript" src="{{ asset('bundles/ivelazquezcore/js/jquery/jquery-1.8.2.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/ivelazquezcore/js/bootstrap/bootstrap.min.js') }}"></script>
     </head>
     <body>
         {% block body %}{% endblock %}
