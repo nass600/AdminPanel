@@ -2,7 +2,7 @@
 
 {% block body %}
     <div class="ribbon right {{ server.ribbon_color }}">
-      <a href="<link to your repo>">{{ server.environment }}</a>
+      <a>{{ server.environment }}</a>
     </div>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-inner">
@@ -14,7 +14,7 @@
                 <div class="nav-collapse collapse">
                     <ul class="nav">
                         <li class="active">
-                            {#<a href="{{ path('admin_project_list') }}">Projects</a>#}
+                            <a href="{{ path('_logout') }}"><i class="icon-off icon-white"></i>Logout</a>
                         </li>
                     </ul>
                 </div>

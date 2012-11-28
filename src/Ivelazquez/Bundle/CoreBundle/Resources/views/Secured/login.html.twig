@@ -1,0 +1,27 @@
+{% extends 'IvelazquezCoreBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1>Login</h1>
+
+    {% if error %}
+        <div class="error">{{ error.message }}</div>
+    {% endif %}
+
+    <form class="form-horizontal" action="{{ path("_security_check") }}" method="post" id="login">
+        <div class="control-group">
+            <label class="control-label" for="username">Username</label>
+            <div class="controls">
+                <input type="text" id="username" name="_username" value="{{ last_username }}" />
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="password">Password</label>
+            <div class="controls">
+                <input type="password" id="password" name="_password" />
+            </div>
+        </div>
+
+        <input type="submit" class="btn btn-primary" value="Login" />
+    </form>
+{% endblock %}
