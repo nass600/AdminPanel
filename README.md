@@ -7,6 +7,10 @@ Imagine you have at your disposal a production server with Sonar, Jenkins, Rabbi
 With this panel you have access all of the management tools you have installed in one place and also you can extend
 its functionality via adding new bundles.
 
+## Screenshots
+
+![](https://github.com/michelsalib/BCCCronManagerBundle/raw/master/Resources/screenshots/layout.png)
+
 ## Installation
 
 1.  First download the repository code to your local:
