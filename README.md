@@ -92,7 +92,7 @@ its functionality via adding new bundles.
 ## Configuration
 
 
-# Adding Tools and Projects
+### Adding Tools and Projects
 
 The project configuration must be done via your parameters.yml file so you can install the project in any
 environment without dependencies
@@ -100,32 +100,32 @@ environment without dependencies
 A fully configured project looks like this:
 
     ```yml
-    parameters:
-        server:
-            logo: "/uploads/server-logo.png"
-            name: "My server name"
-            environment: "production"  # typically: develeopment, pre-production, production...
-            ribbon_color: "red"        # values: black, red, blue, green, orange, purple, gray or white
-        tools:
-            -
-                name:  "Jenkins"
-                url:   "http://jenkins.yourcompany.com"             # Domain or IP where you have the tool panel
-                icon:  "/uploads/tools/jenkins.png"                 # Tool logotype
-            -
-                name:  "PhpMyAdmin"
-                url:   "http://yourcompany.com/phpmyadmin"
-                icon:  "/uploads/tools/phpmyadmin.png"
-        projects:
-            -
-                name:  "My Project"
-                url:   "http://yourproject.com"
-                icon:  "/uploads/projects/my-project.png"
-        users:                                                      # List of user who may manage the server
-            admin: { password: password, roles: [ 'ROLE_ADMIN' ] }
+        parameters:
+            server:
+                logo: "/uploads/server-logo.png"
+                name: "My server name"
+                environment: "production"  # typically: develeopment, pre-production, production...
+                ribbon_color: "red"        # values: black, red, blue, green, orange, purple, gray or white
+            tools:
+                -
+                    name:  "Jenkins"
+                    url:   "http://jenkins.yourcompany.com"             # Domain or IP where you have the tool panel
+                    icon:  "/uploads/tools/jenkins.png"                 # Tool logotype
+                -
+                    name:  "PhpMyAdmin"
+                    url:   "http://yourcompany.com/phpmyadmin"
+                    icon:  "/uploads/tools/phpmyadmin.png"
+            projects:
+                -
+                    name:  "My Project"
+                    url:   "http://yourproject.com"
+                    icon:  "/uploads/projects/my-project.png"
+            users:                                                      # List of user who may manage the server
+                admin: { password: password, roles: [ 'ROLE_ADMIN' ] }
     ```
 
 
-# Adding Bundles
+### Adding Bundles
 
 You can also add a bundle to extend the server management functionality. For instance, you could find on github
 a bundle for managing cron tasks (https://github.com/michelsalib/BCCCronManagerBundle) or another for system
@@ -138,10 +138,10 @@ Next, just add a new tool and set the parameter `route` with the routing name of
 instead of a common `url`:
 
     ```yml
-    parameters:
-        tools:
-            -
-                name:  "Cron Manager"
-                route: "BCCCronManagerBundle_index"                 # Main route name where is the bundle's panel
-                icon:  "/uploads/tools/logo.png"                    # Bundle logotype if any
+        parameters:
+            tools:
+                -
+                    name:  "Cron Manager"
+                    route: "BCCCronManagerBundle_index"                 # Main route name where is the bundle's panel
+                    icon:  "/uploads/tools/logo.png"                    # Bundle logotype if any
     ```
