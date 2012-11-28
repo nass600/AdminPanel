@@ -9,7 +9,7 @@ its functionality via adding new bundles.
 
 ## Screenshots
 
-![](https://github.com/michelsalib/BCCCronManagerBundle/raw/master/Resources/screenshots/layout.png)
+![](https://github.com/nass600/AdminPanel/raw/master/web/screenshots/layout.png)
 
 ## Installation
 
