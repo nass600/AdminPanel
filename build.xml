@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="platform" default="install">
+
+  <target name="install" depends="links,vendors,database,assets" description="First install after the first
+    clone"/>
+
+  <target name="vendors" description="Remove and download latest version of all vendors">
+    <echo msg="Updating vendors..."/>
+    <delete dir="vendors"/>
+    <exec passthru="true" checkreturn="true" command="composer install" />
+  </target>
+
+  <target name="build" depends="cache,pdepend,phpmd,phpcpd,phpdoc,phploc,phpunit,phpcb"
+    description="Run all tests and build everything"/>
+
+  <target name="links" description="Make required symbolic links to static directories">
+    <echo msg="Removing old links..."/>
+    <delete>
+      <fileset dir=".">
+        <include name="web/statics"/>
+        <include name="web/images"/>
+        <include name="web/css"/>
+        <include name="web/js"/>
+        <include name="web/build"/>
+      </fileset>
+    </delete>
+
+    <echo msg="Linking static content..."/>
+    <exec command="ln -s ../app/build web/build" />
+  </target>
+
+  <target name="database" description="Creating the platform database">
+    <echo msg="Creating database..." />
+
+    <exec passthru="true" command="./app/console doctrine:database:drop --force"/>
+    <exec passthru="true" checkreturn="true" command="./app/console doctrine:database:create"/>
+    <exec passthru="true" checkreturn="true" command="./app/console doctrine:schema:update --force"/>
+    <exec passthru="true" checkreturn="true" command="./app/console doctrine:fixtures:load"/>
+    <phingcall target="cache" />
+  </target>
+
+  <target name="cache" description="Clean up and create cache directories">
+    <echo msg="Cleaning cache and log files..."/>
+
+    <exec passthru="true" checkreturn="true" command="rm -Rf app/cache/*"/>
+    <exec passthru="true" checkreturn="true" command="rm -Rf app/logs/*"/>
+    <chmod file="app/cache" mode="777"/>
+    <chmod file="app/logs" mode="777"/>
+
+    <!-- Build -->
+    <mkdir dir="app/build" />
+    <mkdir dir="app/build/api" />
+    <mkdir dir="app/build/code-browser"/>
+    <mkdir dir="app/build/coverage"/>
+    <mkdir dir="app/build/tests"/>
+    <mkdir dir="app/build/logs"/>
+    <mkdir dir="app/build/pdepend"/>
+    <chmod file="app/build" mode="777"/>
+  </target>
+
+  <target name="assets" description="Publish css, js and images">
+    <echo msg="Publishing assets..."/>
+    <phingcall target="cache"/>
+    <exec passthru="true" checkreturn="true" command="rm -Rf web/css/*"/>
+    <exec passthru="true" checkreturn="true" command="./app/console assets:install web --symlink"/>
+    <exec passthru="true" checkreturn="true" command="./app/console assetic:dump"/>
+    <phingcall target="cache"/>
+  </target>
+
+  <target name="assets_prod" description="Publish css, js and images">
+    <echo msg="Publishing assets..."/>
+    <phingcall target="cache"/>
+    <exec passthru="true" checkreturn="true" command="rm -Rf web/css/*"/>
+    <exec passthru="true" checkreturn="true" command="./app/console assets:install web --symlink"/>
+    <exec passthru="true" checkreturn="true" command="./app/console assetic:dump --env=prod --no-debug"/>
+    <phingcall target="cache"/>
+  </target>
+
+  <target name="phpunit" description="Run unit tests using PHPUnit and generates junit.xml and clover.xml">
+    <exec passthru="true" checkreturn="true" command="phpunit -c app/phpunit.xml"/>
+  </target>
+
+  <target name="pdepend" description="Generate jdepend.xml and software metrics charts using PHP_Depend">
+    <exec command="pdepend --summary-xml=app/build/pdepend/summary.xml --jdepend-xml=app/build/logs/jdepend.xml
+      --jdepend-chart=app/build/pdepend/dependencies.svg --overview-pyramid=app/build/pdepend/overview-pyramid.svg src"/>
+  </target>
+
+  <target name="phpmd" description="Generate pmd.xml using PHPMD">
+    <exec command="phpmd src xml app/phpmd.xml --reportfile app/build/logs/pmd.xml"/>
+  </target>
+
+  <target name="phpcpd" description="Generate pmd-cpd.xml using PHPCPD">
+    <exec command="phpcpd --log-pmd app/build/logs/pmd-cpd.xml src"/>
+  </target>
+
+  <target name="phploc" description="Generate phploc.csv">
+    <exec command="phploc --log-csv app/build/logs/phploc.csv src"/>
+  </target>
+
+  <target name="phpdoc" description="Generate API documentation using PHPDocumentor">
+    <exec command="phpdoc -o HTML:frames:earthli -d src -t app/build/api -ti 'Empower the customer'"/>
+  </target>
+
+  <target name="phpcb" description="Aggregate tool output with PHP_CodeBrowser">
+    <exec command="phpcb --log app/build/logs --source src --output app/build/code-browser"/>
+  </target>
+</project>
